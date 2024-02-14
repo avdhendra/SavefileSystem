@@ -6,6 +6,6 @@ import { upload } from '../config/multer.js';
 
 const router = express.Router();
 
-router.post("/image",verifyToken,upload.single('picture'),uploadImage )
+router.post("/image",verifyToken,upload.single('image'),uploadImage )
 router.get("/getimage",verifyToken,getImage)
 export default router

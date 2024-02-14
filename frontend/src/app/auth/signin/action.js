@@ -8,15 +8,15 @@ export const handleSign = async (body) => {
             method: "POST",
 
             headers: {
-                 Accept: "applicaiton/json",
+                 Accept: "application/json",
                 "Content-Type": "application/json",
 
 
-            },
+             },
            
-            mode: 'cors',
+            // mode: 'cors',
             body: JSON.stringify(body),
-            withCredentials: true,
+          
             credentials:"include"
 
         })

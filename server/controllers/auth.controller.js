@@ -1,9 +1,10 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
 import User from "../model/user.js";
-import cookie from "cookie"
+// import cookie from "cookie"
+import dotenv from "dotenv"
 import { EMAIL_REGEX } from "../util/regex.js";
-
+dotenv.config()
 
 export const register = async (req, res) => {
     try {
@@ -27,6 +28,8 @@ export const register = async (req, res) => {
 }
 
 export const login = async (req, res) => {
+    // console.log("login :12354")
+    //    return res.status(200).json("123")
     const { email, password } = req.body
 
     if (!EMAIL_REGEX.test(email)) {
@@ -56,21 +59,26 @@ export const login = async (req, res) => {
         delete user.password
        console.log("gdahsd")
         
-        res.cookie("token", jwtToken, {
-            httpOnly: true,
-            maxAge: 60 * 60,
-            
-            sameSite: 'none',
-            secure:false
-        })
-        res.cookie("_id", user.userId, {
-             httpOnly: true,
-            maxAge: 60 * 60,
-            sameSite: 'none',
-            secure:false
-        })
-       return res.status(200).json({token:jwtToken,id:user.userId})
-        
+//         res.cookie("token", jwtToken, {
+//             httpOnly: true,
+//             maxAge: 60 * 60,
+           
+//             sameSite: 'None',
+//             secure:process.env.NODE_ENV !== 'production' ? false : true
+//         })
+//         res.cookie("_id", user.userId, {
+//              httpOnly: true,
+//             maxAge: 60 * 60,
+//             sameSite: 'None',
+           
+//             secure:process.env.NODE_ENV !== 'production' ? false : true
+//         })
+//         res.setHeader('Set-Cookie', [
+//     `token=${jwtToken}; HttpOnly; Path=/; Max-Age=${60 * 60}; Secure=True;`,
+//     `id=${user.userId}; HttpOnly; Path=/; Max-Age=${60 * 60 * 24 * 7 * 2}; Secure=True`
+// ]);
+      return res.status(200).json({token:jwtToken,id:user.userId})
+     
        
       //  res.status(200).json(data)
    

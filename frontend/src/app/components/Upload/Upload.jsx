@@ -1,23 +1,27 @@
+"use client"
 import { submitImage } from '@/app/dashboard/action'
-import React from 'react'
+import React, { useState } from 'react'
 import { useRef } from 'react'
 import toast from "react-hot-toast"
 const Upload = () => {
     
-    const image = useRef()
-    const handleUpload = async() => {
+   const [file,setFile]=useState()
+    const handleUpload = async () => {
+        console.log("hase")
         const token=typeof window!=='undefined' ? localStorage.getItem('token'):"null"
          
-        const value = image.current.value[0]
+       
+       
          const formData = new FormData();
     formData.append('image', file);
-        //console.log("value: " + value)
+        console.log("value: " + formData)
         // const body = {
         //     value
         // }
         try {
-            const response=await submitImage(token,formData)
-            if (response.status === 200) { 
+            const response = await submitImage(token, formData)
+            console.log("response: " + JSON.stringify(response))
+            if (response) { 
                 toast.success("Image saved Successfully")
             }
         } catch (error) {
@@ -37,7 +41,7 @@ const Upload = () => {
             <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
             <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
         </div>
-        <input id="dropzone-file" type="file" ref={image}  className="hidden" />
+        <input id="dropzone-file" type="file" onChange={(e)=>setFile(e.target.files[0])}  className="hidden" />
           </label>
            
           </div>

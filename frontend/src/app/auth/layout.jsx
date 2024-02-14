@@ -1,12 +1,12 @@
 "use client"
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useLayoutEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import {Toaster} from "react-hot-toast"
 const Auth = ({ children }) => {
   const router=useRouter()
   const token = typeof window !== 'undefined' ? localStorage.getItem('id') : false;
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (token) {
        router.push('/dashboard',{scroll:false})
     } else {
